@@ -48,10 +48,15 @@ namespace DynamicProgramming
             // Console.WriteLine("LCA :  " + Lca(a.Length, b.Length, a, b));
 
             //Kadance algo -  
-            int[] a = { 5, -4, -2, 6, -1 };
-            Console.WriteLine("kadance algo : maxsub array : "+ maxsumSubArray(a));
+            /*
+                        int[] a = { 5, -4, -2, 6, -1 };
+                        Console.WriteLine("kadance algo : maxsub array : "+ maxsumSubArray(a));
+            */
 
-
+            // Extended kadance alogorithm -Find max sum of sub array - 2d array . 
+            int[,] a2d =new int[,] { { -8,-3,4,-1},{3,8,10,1 },{ -4,-1,1,8},{ -2,-3,8,9} ,{ 2,-4,6,9} };
+            print2dArray(a2d);
+            Console.WriteLine("MAx sum of 2d matrix : "+ KadanceExtended(a2d.GetLength(0), a2d.GetLength(1), a2d));
 
         }
 
@@ -149,5 +154,42 @@ namespace DynamicProgramming
 
             return maxsum;
         }
+        static void print2dArray(int[,] arrip)
+        {
+            int x = arrip.GetLength(0);
+            int z = arrip.GetLength(1);
+            Console.WriteLine("Print start");
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < z; j++)
+                {
+                    //Console.WriteLine("arrip[{0},{1}] :{2}", i, j, arrip[i, j]);
+                    Console.Write("{0}  ", arrip[i, j]);
+                }
+                Console.WriteLine();
+                //  Console.WriteLine("arrip[{0},{1}] :{2} ,arrip[{0},{3}] :{4}", i,0, arrip[i, 0],1, arrip[i, 1]);
+            }
+            Console.WriteLine("Print end");
+
+        }
+        static int KadanceExtended(int r, int c, int[,] a) 
+        {
+            int maxsum = int.MinValue;
+            int[] sum = new int[r];
+            for (int cstart = 0; cstart < c; cstart++) 
+            {
+                Array.Fill(sum, 0);
+                for (int cend = cstart; cend < c; cend++) 
+                {
+                    for (int row = 0; row < r; row++) 
+                    {
+                        sum[row] += a[row, cstart];
+                    }
+                    maxsum = Math.Max(maxsumSubArray(sum),maxsum);
+                }
+            }
+            return maxsum;
+        }
+       
     }
 }
