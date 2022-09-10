@@ -44,8 +44,13 @@ namespace DynamicProgramming
                         }*/
 
             // Longest common sub sequence 
-            String a = "ABCAB", b = "AECB";
-          Console.WriteLine("LCA :  " + Lca(a.Length, b.Length, a, b));
+            // String a = "ABCAB", b = "AECB";
+            // Console.WriteLine("LCA :  " + Lca(a.Length, b.Length, a, b));
+
+            //Kadance algo -  
+            int[] a = { 5, -4, -2, 6, -1 };
+            Console.WriteLine("kadance algo : maxsub array : "+ maxsumSubArray(a));
+
 
 
         }
@@ -94,7 +99,7 @@ namespace DynamicProgramming
             Console.WriteLine();
 
             return LcaUtil(m,n,a,b,dp);
-        }
+        }                                                                                
 
         static int LcaUtil(int m, int n, string a, string b, int[,] dp) 
         {
@@ -128,5 +133,21 @@ namespace DynamicProgramming
                     return dp[m, n];
         }
 
+
+        //  Kadance algorithm - T =  O(n)
+        static int maxsumSubArray(int[] a) 
+        {
+            int maxsum = 0, cursum = 0;
+
+            for (int i = 0; i < a.Length; i++) 
+            {
+                cursum += a[i];
+
+                if (cursum > maxsum) maxsum = cursum;
+                if(cursum<0) cursum = 0;
+            }
+
+            return maxsum;
+        }
     }
 }
